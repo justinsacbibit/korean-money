@@ -41,6 +41,8 @@ class App extends Component {
       showAnswer: false,
       value: '',
       result: null,
+      correctAnswers: 0,
+      wrongAnswers: 0,
     };
     this.playAudio = this.playAudio.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -81,9 +83,12 @@ class App extends Component {
     if (this.state.result !== null) {
       this.setNewAnswer();
     } else {
+      const correct = Number(this.state.value) === this.state.answer;
       this.setState({
-        result: Number(this.state.value) === this.state.answer,
+        result: correct,
         showAnswer: true,
+        correctAnswers: correct ? this.state.correctAnswers + 1 : this.state.correctAnswers,
+        wrongAnswers: !correct ? this.state.wrongAnswers + 1 : this.state.wrongAnswers,
       });
     }
   }
@@ -97,6 +102,12 @@ class App extends Component {
         return 'Medium Hard';
     }
   }
+  correctPercentage() {
+    if (this.state.correctAnswers + this.state.wrongAnswers === 0) {
+      return `100%`;
+    }
+    return `${Math.round(this.state.correctAnswers / (this.state.correctAnswers + this.state.wrongAnswers) * 10000)/ 100}%`;
+  }
   render() {
     return (
       <div className="App">
@@ -109,9 +120,11 @@ class App extends Component {
         {/*</p>*/}
         {/*<button onClick={this.setNewAnswer}>New number</button>*/}
         <p>
+          {this.state.correctAnswers}/{this.state.wrongAnswers + this.state.correctAnswers} ({this.correctPercentage()})
+        </p>
+        <p>
           Difficulty: {this.difficultyText(this.state.difficulty)}
         </p>
-        <br />
         <button onClick={() => this.setDifficulty(0)}>{this.difficultyText(0)}</button>
         <button onClick={() => this.setDifficulty(1)}>{this.difficultyText(1)}</button>
         <button onClick={() => this.setDifficulty(2)}>{this.difficultyText(2)}</button>

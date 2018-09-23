@@ -7,19 +7,19 @@ const generateNewAnswer = (difficulty) => {
   if (difficulty === 0) {
     const multiple = Math.floor(Math.random() * 2);
     if (multiple === 0) {
-      return (Math.floor(Math.random() * 9) + 1) * 100;
+      return Math.floor((Math.floor(Math.random() * 9) + 1) * 100);
     } else {
-      return (Math.floor(Math.random() * 9) + 1) * 1000;
+      return Math.floor((Math.floor(Math.random() * 9) + 1) * 1000);
     }
   } else if (difficulty === 1) {
     const multiple = Math.floor(Math.random() * 25);
     if (multiple < 20) {
-      return (Math.floor(Math.random() * 99) + 1) * 100;
+      return Math.floor((Math.floor(Math.random() * 99) + 1) * 100);
     } else {
-      return (Math.floor(Math.random() * 15) + 10) * 1000;
+      return Math.floor((Math.floor(Math.random() * 15) + 10) * 1000);
     }
   } else {
-    return (Math.floor(Math.random() * 249) + 1) * 100;
+    return Math.floor((Math.floor(Math.random() * 249) + 1) * 100);
   }
 };
 

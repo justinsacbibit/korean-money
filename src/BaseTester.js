@@ -14,6 +14,7 @@ class BaseTester extends Component {
     this.msg = msg;
     const difficulty = 1;
     const answer = props.generateNewAnswer(difficulty);
+    this.inputs = [...Array(this.props.answerSchema.length)];
     this.state = {
       difficulty,
       answer,
@@ -44,6 +45,7 @@ class BaseTester extends Component {
       result: null,
       values: [...Array(this.props.answerSchema.length)].map((x, i) => ''),
     }, this.playAudio);
+    this.inputs[0].focus();
   }
   showAnswer() {
     this.setState({
@@ -129,7 +131,7 @@ class BaseTester extends Component {
           <label>
             Answer
             {this.props.answerSchema.map((singleAnswerSchema, i) => [
-                <input type="text" value={this.state.values[i]} onChange={this.handleChange.bind(this, i)} />,
+                <input ref={input => { this.inputs[i] = input; }} type="text" value={this.state.values[i]} onChange={this.handleChange.bind(this, i)} />,
                 singleAnswerSchema.unit,
             ])}
           </label>

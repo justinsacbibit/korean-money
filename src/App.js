@@ -7,7 +7,7 @@ import './App.css';
 
 
 const BasicExample = () => (
-  <Router>
+  <Router basename={process.env.PUBLIC_URL}>
     <div>
       <ul>
         <li>
